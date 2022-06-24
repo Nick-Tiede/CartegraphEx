@@ -1,7 +1,11 @@
 import pymysql
 
 # Connects to the AWS RDS database
-db = pymysql.connect(host='database-1.c7gcexcv61xq.us-west-1.rds.amazonaws.com', port=3306, user='admin', password='Password123!', db='weather_data')
+db = pymysql.connect(host='database-1.c7gcexcv61xq.us-west-1.rds.amazonaws.com', 
+                     port=3306, 
+                     user='admin', 
+                     password='Password123!', 
+                     db='weather_data')
 cursor = db.cursor()
 
 # Creates the MySQL database and the weather table
@@ -26,11 +30,12 @@ def createDatabase():
     return
 
 # Inserts pre-cleaned weather data into weather table
-def insertWeatherData(date, latitude, longitude, max_temp_f, min_temp_f, total_rain_in, total_snow_in):
+# Takes in a tuple containing each value in order
+def insertWeatherData(data):
+    date, latitude, longitude, max_temp_f, min_temp_f, total_rain_in, total_snow_in = data
     sql = '''
         INSERT INTO weather(date, latitude, longitude, max_temp_f, min_temp_f, total_rain_in, total_snow_in)
-        VALUES('%s', '%s', '%s', '%s', '%s', '%s', '%s')
-        ''' % (date, latitude, longitude, max_temp_f, min_temp_f, total_rain_in, total_snow_in)
+        VALUES({date}, {latitude}, {longitude}, {max_temp_f}, {min_temp_f}, {total_rain_in}, {total_snow_in})'''
     cursor.execute(sql)
     db.commit()
     return

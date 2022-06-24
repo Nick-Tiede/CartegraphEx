@@ -17,6 +17,7 @@ cursor = db.cursor()
 # Creates the MySQL database and the weather table
 # Should only be used once for initial database set up
 def createDatabase():
+    logging.warning('createDatabase() should only be run on initial setup. This has already been completed.')
     sql = '''create database weather_data'''
     try:
         cursor.execute(sql)

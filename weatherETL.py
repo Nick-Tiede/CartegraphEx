@@ -27,4 +27,4 @@ def runWeatherETL():
 
 
 runWeatherETL()
-print(getAllData())
+#print(getAllData())

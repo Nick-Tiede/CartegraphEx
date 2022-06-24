@@ -1,3 +1,8 @@
+'''
+Interface to the AWS RDS MySQL database.
+createDatabase() has already been run and does not need to again
+'''
+
 import pymysql
 
 # Connects to the AWS RDS database
@@ -35,7 +40,8 @@ def insertWeatherData(data):
     date, latitude, longitude, max_temp_f, min_temp_f, total_rain_in, total_snow_in = data
     sql = '''
         INSERT INTO weather(date, latitude, longitude, max_temp_f, min_temp_f, total_rain_in, total_snow_in)
-        VALUES({date}, {latitude}, {longitude}, {max_temp_f}, {min_temp_f}, {total_rain_in}, {total_snow_in})'''
+        VALUES(STR_TO_DATE('%s', '%%Y-%%m-%%d'), %s, %s, %s, %s, %s, %s)
+        ''' % (date, latitude, longitude, max_temp_f, min_temp_f, total_rain_in, total_snow_in)
     cursor.execute(sql)
     db.commit()
     return

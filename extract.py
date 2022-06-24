@@ -4,6 +4,7 @@ Extracts data from the Timeline Weather API from https://www.visualcrossing.com/
 *This API allows queries that can clean and format the data, however I chose to retrieve 
 their standard settings to better show the automation and ETL process.
 '''
+
 import urllib.error
 import urllib.request
 import csv
@@ -21,7 +22,7 @@ def getCoordinates():
 
 # Returns dataframe of today's raw weather data
 def getDailyWeather():
-    df = NULL
+    df = None
     try: 
         latitude, longitude = getCoordinates()
         url = "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/"+latitude+"%2C%20"+longitude+"/today?unitGroup=metric&include=days&key=P453U46BWCHGSJWZACMLF3HNB&contentType=csv"

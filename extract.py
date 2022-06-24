@@ -5,6 +5,7 @@ Extracts data from the Timeline Weather API from https://www.visualcrossing.com/
 their standard settings to better show the automation and ETL process.
 '''
 
+import os
 import sys
 import urllib.error
 import urllib.request
@@ -17,7 +18,7 @@ import logging
 def getCoordinates():
     latitude, longitude = None, None
     try:
-        with open('cfg.txt') as text:
+        with open(os.path.join(sys.path[0], 'cfg.txt')) as text:
             strCoords = text.readline().rstrip()
         latitude, longitude = eval(strCoords)
     except:
@@ -50,7 +51,7 @@ def getDailyWeather():
 def getTestDailyWeather():
     df = None
     try:
-        df = pd.read_csv('fakeAPIQueryCSV.csv')
+        df = pd.read_csv(os.path.join(sys.path[0], 'fakeAPIQueryCSV.csv'))
     except:
         logging.error('Unable to read fake API data')
     return df
